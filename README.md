@@ -9,12 +9,21 @@ How to install
 1/ Copy this JAR inside platform.ear/lib (JBoss distribution) or TOMCAT/lib (Tomcat distribution)
 2/ Modify configuration.properties to add those keys:
 
+{code}
 \# Components to delete (separated by a commar ',')
+
 exo.container.delete.components=
+
 \# Components to consider for plugins deletion (separated by a commar ',')
+
 exo.container.filter.components=
+
 \# Component Plugin Types to delete from filtered components to delete (separated by a commar ',')
+
 exo.container.delete.plugins.types=
+
 \# Component Plugin Names to delete from filtered components to delete (separated by a commar ',')
+
 exo.container.delete.plugins.names=
+
 {code}
