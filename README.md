@@ -24,3 +24,11 @@ exo.container.delete.plugins.types=
 \# Component Plugin Names to delete from filtered components to delete (separated by a commar ',')
 
 exo.container.delete.plugins.names=
+
+\# Components to consider for init params modification (separated by a commar ',')
+
+exo.container.modify.params.components=
+
+\# Example Component init params modification
+
+FQN-OF-COMPONENT-KEY-CLASS.INIT-PARAM-NAME=VALUE
