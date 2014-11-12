@@ -2,6 +2,9 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.exoplatform.org/xml/ns/kernel_1_2.xsd http://www.exoplatform.org/xml/ns/kernel_1_2.xsd"
 	xmlns="http://www.exoplatform.org/xml/ns/kernel_1_2.xsd">
 	<container-lifecycle-plugin>
+		<type>org.exoplatform.addons.component.filter.FilterInitParamsFromContainer</type>
+	</container-lifecycle-plugin>
+	<container-lifecycle-plugin>
 		<type>org.exoplatform.addons.component.filter.FilterComponentPluginsFromContainer</type>
 	</container-lifecycle-plugin>
 </configuration>

@@ -40,14 +40,14 @@ public class FilterComponentPluginsFromContainer extends BaseContainerLifecycleP
   private Set<String> toDeletePluginNames = new HashSet<String>();
 
   public void initContainer(ExoContainer container) {
-    addEntries("exo.container.delete.components", toDeletedComponents);
+    addEntries("exo.container.delete.components", toDeletedComponents, true);
 
-    addEntries("exo.container.filter.components", filteredComponents);
+    addEntries("exo.container.filter.components", filteredComponents, true);
     filteredComponents.removeAll(toDeletedComponents);
 
-    addEntries("exo.container.delete.plugins.types", toDeletePlugins);
+    addEntries("exo.container.delete.plugins.types", toDeletePlugins, true);
 
-    addEntries("exo.container.delete.plugins.names", toDeletePluginNames);
+    addEntries("exo.container.delete.plugins.names", toDeletePluginNames, false);
 
     // Delete Components
     for (String componentKey : toDeletedComponents) {
@@ -91,7 +91,7 @@ public class FilterComponentPluginsFromContainer extends BaseContainerLifecycleP
     }
   }
 
-  private void addEntries(String propertyName, Set<String> impactedEntries) {
+  private void addEntries(String propertyName, Set<String> impactedEntries, boolean isClass) {
     String entries = System.getProperty(propertyName, "");
     if (entries.isEmpty()) {
       return;
@@ -102,11 +102,14 @@ public class FilterComponentPluginsFromContainer extends BaseContainerLifecycleP
       if (componentKey == null || componentKey.isEmpty()) {
         continue;
       }
-      try {
-        // Test if this class exists
-        Class.forName(componentKey);
-      } catch (ClassNotFoundException e) {
-        LOG.warn("Uknown Class '{}', verify settings putted in configuration.properties file.", componentKey);
+      if (isClass) {
+        try {
+          // Test if this class exists
+          Class.forName(componentKey);
+        } catch (ClassNotFoundException e) {
+          LOG.warn("Uknown Class '{}', please verify used settings in configuration.properties file.", componentKey);
+          continue;
+        }
       }
       impactedEntries.add(componentKey.trim());
     }
