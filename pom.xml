@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>org.exoplatform.addons</groupId>
 		<artifactId>addons-parent-pom</artifactId>
-		<version>2</version>
+		<version>5</version>
 	</parent>
 	<groupId>org.exoplatform.addons.component-filter</groupId>
 	<artifactId>component-filter-addon</artifactId>
