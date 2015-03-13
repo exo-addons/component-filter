@@ -36,18 +36,17 @@ public class FilterComponentPluginsFromContainer extends BaseContainerLifecycleP
   // Component Plugin Types to delete from filtered components to delete
   private Set<String> toDeletePlugins = new HashSet<String>();
 
-  // Component Plugin Names to delete from filtered components to delete
-  private Set<String> toDeletePluginNames = new HashSet<String>();
-
   public void initContainer(ExoContainer container) {
     addEntries("exo.container.delete.components", toDeletedComponents, true);
 
     addEntries("exo.container.filter.components", filteredComponents, true);
     filteredComponents.removeAll(toDeletedComponents);
 
-    addEntries("exo.container.delete.plugins.types", toDeletePlugins, true);
+    addEntries("exo.container.delete.plugins", toDeletePlugins, false);
 
-    addEntries("exo.container.delete.plugins.names", toDeletePluginNames, false);
+    // to preserve compatibility with old versions
+    addEntries("exo.container.delete.plugins.types", toDeletePlugins, true);
+    addEntries("exo.container.delete.plugins.names", toDeletePlugins, false);
 
     // Delete Components
     for (String componentKey : toDeletedComponents) {
@@ -98,20 +97,20 @@ public class FilterComponentPluginsFromContainer extends BaseContainerLifecycleP
     }
 
     String[] componentsArray = entries.split(",");
-    for (String componentKey : componentsArray) {
-      if (componentKey == null || componentKey.isEmpty()) {
+    for (String component : componentsArray) {
+      if (component == null || component.isEmpty()) {
         continue;
       }
       if (isClass) {
         try {
           // Test if this class exists
-          Class.forName(componentKey);
+          Class.forName(component);
         } catch (ClassNotFoundException e) {
-          LOG.warn("Uknown Class '{}', please verify used settings in configuration.properties file.", componentKey);
+          LOG.warn("Uknown Class '{}', please verify used settings in configuration.properties file.", component);
           continue;
         }
       }
-      impactedEntries.add(componentKey.trim());
+      impactedEntries.add(component);
     }
   }
 
@@ -119,15 +118,15 @@ public class FilterComponentPluginsFromContainer extends BaseContainerLifecycleP
     if (!filteredComponents.contains(componentKey)) {
       return;
     }
-    LOG.info("Delete some component plugins of component '{}'", componentKey);
     if (componentPlugins == null || componentPlugins.isEmpty()) {
       return;
     }
     Iterator<ComponentPlugin> iterator = componentPlugins.iterator();
+    LOG.info("Disable plugins of component : " + componentKey);
     while (iterator.hasNext()) {
       ComponentPlugin componentPlugin = (ComponentPlugin) iterator.next();
-      if (toDeletePlugins.contains(componentPlugin.getType()) || toDeletePluginNames.contains(componentPlugin.getName())) {
-        LOG.info("Disable component plugin : " + componentPlugin.getType());
+      if (toDeletePlugins.contains(componentPlugin.getType()) || toDeletePlugins.contains(componentPlugin.getName())) {
+        LOG.info("Disable component plugin : " + componentPlugin.getType() + " with name: " + componentPlugin.getName());
         iterator.remove();
       }
     }
