@@ -14,7 +14,7 @@ How to install
 ---- 
 \# **Example**:
 
-\#          exo.container.delete.components=org.gatein.sso.agent.cas.CASAgent
+\#          `exo.container.delete.components=org.gatein.sso.agent.cas.CASAgent`
 
 \#          This will avoid the instanciation of the Service 'org.gatein.sso.agent.cas.CASAgent' in eXo Platform
 
@@ -22,14 +22,14 @@ How to install
 
 \# FQN of Services Keys to delete (separated by a commar ',')
 
-* exo.container.delete.components=
+* `exo.container.delete.components=`
 
 ----
 \# **Example**:
 
-\#          exo.container.filter.components=org.exoplatform.services.wcm.core.WebSchemaConfigService,
+\#          `exo.container.filter.components=org.exoplatform.services.wcm.core.WebSchemaConfigService,`
 
-\#          exo.container.delete.plugins=CSSFileHandler,org.exoplatform.services.wcm.javascript.JSFileHandler
+\#          `exo.container.delete.plugins=CSSFileHandler,org.exoplatform.services.wcm.javascript.JSFileHandler`
 
 \# 
 
@@ -39,20 +39,23 @@ How to install
 
 \# FQN of Services Keys to consider for plugins deletion (separated by a commar ',')
 
-* exo.container.filter.components=
+* `exo.container.filter.components=`
 
 \# Type OR Name of Component Plugins to delete from filtered components to delete (separated by a commar ',')
 
-* exo.container.delete.plugins=
+* `exo.container.delete.plugins=`
 
 ----
 \# **Example**:
-\#          exo.container.modify.params.components=org.exoplatform.portal.config.UserPortalConfigService:default.import.mode:conserve
+
+\#          `exo.container.modify.params.components=org.exoplatform.portal.config.UserPortalConfigService:default.import.mode:conserve`
+
 \# 
+
 \#          This will modify or add a parameter with name 'default.import.mode' in Service UserPortalConfigService with value 'conserve'
 
 \# **Usage**:
 
 \# FQN of Services Keys to consider for init params modification (separated by a commar ',')
 
-* exo.container.modify.params.components=
+* `exo.container.modify.params.components=`
